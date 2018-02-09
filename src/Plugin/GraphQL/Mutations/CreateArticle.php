@@ -28,8 +28,8 @@ class CreateArticle extends CreateEntityBase {
    */
   protected function extractEntityInput(array $args, ResolveInfo $info) {
     return [
-      'title' => $args['title'],
-      'body' => $args['body'],
+      'title' => $args['input']['title'],
+      'body' => $args['input']['body'],
     ];
   }
 
