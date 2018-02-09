@@ -15,9 +15,9 @@ use Youshido\GraphQL\Execution\ResolveInfo;
  *   entity_bundle = "article",
  *   secure = true,
  *   name = "createArticle",
- *   type = "EntityCrudOutput",
+ *   type = "EntityCrudOutput!",
  *   arguments = {
- *      "input" = "ArticleInput"
+ *     "input" = "ArticleInput"
  *   }
  * )
  */
@@ -26,10 +26,10 @@ class CreateArticle extends CreateEntityBase {
   /**
    * {@inheritdoc}
    */
-  protected function extractEntityInput(array $inputArgs, InputObjectType $inputType, ResolveInfo $info) {
+  protected function extractEntityInput(array $args, ResolveInfo $info) {
     return [
-      'title' => $inputArgs['title'],
-      'body' => $inputArgs['body'],
+      'title' => $args['title'],
+      'body' => $args['body'],
     ];
   }
 

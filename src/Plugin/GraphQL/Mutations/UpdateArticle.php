@@ -15,10 +15,10 @@ use Youshido\GraphQL\Execution\ResolveInfo;
  *   entity_bundle = "article",
  *   secure = true,
  *   name = "updateArticle",
- *   type = "EntityCrudOutput",
+ *   type = "EntityCrudOutput!",
  *   arguments = {
- *      "id" = "String",
- *      "input" = "ArticleInput"
+ *     "id" = "String",
+ *     "input" = "ArticleInput"
  *   }
  * )
  */
@@ -27,10 +27,10 @@ class UpdateArticle extends UpdateEntityBase {
   /**
    * {@inheritdoc}
    */
-  protected function extractEntityInput(array $inputArgs, InputObjectType $inputType, ResolveInfo $info) {
+  protected function extractEntityInput(array $args, ResolveInfo $info) {
     return array_filter([
-      'title' => $inputArgs['title'],
-      'body' => $inputArgs['body'],
+      'title' => $args['title'],
+      'body' => $args['body'],
     ]);
   }
 
