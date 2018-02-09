@@ -29,8 +29,8 @@ class UpdateArticle extends UpdateEntityBase {
    */
   protected function extractEntityInput(array $args, ResolveInfo $info) {
     return array_filter([
-      'title' => $args['title'],
-      'body' => $args['body'],
+      'title' => $args['input']['title'],
+      'body' => $args['input']['body'],
     ]);
   }
 
