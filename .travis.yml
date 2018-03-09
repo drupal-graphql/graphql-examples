@@ -75,7 +75,7 @@ install:
   - git clone --branch $DRUPAL_CORE --depth 1 https://github.com/drupal/drupal.git $DRUPAL_BUILD_DIR
 
   # Download graphql module from the Github mirror because it is faster.
-  - git clone --depth 1 https://github.com/drupal-graphql/graphql.git $DRUPAL_BUILD_DIR/modules
+  - git clone --depth 1 https://github.com/drupal-graphql/graphql.git $DRUPAL_BUILD_DIR/modules/contrib/graphql
 
   # Reference the module in the build site.
   - ln -s $TRAVIS_BUILD_DIR $DRUPAL_BUILD_DIR/modules/graphql-examples
