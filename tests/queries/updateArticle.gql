@@ -1,0 +1,18 @@
+mutation {
+  updateArticle(id:"1", input:{title: "Heyo", body:"Let's go"}){
+    errors,
+    violations{
+      message,
+      path,
+      code
+    },
+    entity {
+      ...on NodeArticle {
+        title,
+        body {
+          value
+        }
+      }
+    }
+  }
+}
