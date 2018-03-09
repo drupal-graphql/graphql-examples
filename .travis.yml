@@ -23,7 +23,6 @@ matrix:
     - php: 7.1
       env:
         - DRUPAL_CORE=8.4.x
-        - GRAPHQL=8.x-3.x
         # Only run code coverage on the latest php and drupal versions.
         - WITH_PHPDBG_COVERAGE=true
   allow_failures:
@@ -31,7 +30,6 @@ matrix:
     - php: 7.1
       env:
         - DRUPAL_CORE=8.4.x
-        - graphql=8.x-3.x
         # Only run code coverage on the latest php and drupal versions.
         - WITH_PHPDBG_COVERAGE=true
 
@@ -77,7 +75,7 @@ install:
   - git clone --branch $DRUPAL_CORE --depth 1 https://github.com/drupal/drupal.git $DRUPAL_BUILD_DIR
 
   # Download graphql module from the Github mirror because it is faster.
-  - git clone --branch $GRAQHQL --depth 1 https://github.com/drupal-graphql/graphql.git $DRUPAL_BUILD_DIR/modules
+  - git clone --depth 1 https://github.com/drupal-graphql/graphql.git $DRUPAL_BUILD_DIR/modules
 
   # Reference the module in the build site.
   - ln -s $TRAVIS_BUILD_DIR $DRUPAL_BUILD_DIR/modules/graphql-examples
