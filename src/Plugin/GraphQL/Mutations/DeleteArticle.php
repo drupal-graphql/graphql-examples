@@ -4,8 +4,9 @@ namespace Drupal\graphql_examples\Plugin\GraphQL\Mutations;
 
 use Drupal\graphql_core\Plugin\GraphQL\Mutations\Entity\DeleteEntityBase;
 
+
 /**
- * Simple mutation for deleting an article node.
+ * A Simple ArticleNode mutation.
  *
  * @GraphQLMutation(
  *   id = "delete_article",
@@ -15,7 +16,7 @@ use Drupal\graphql_core\Plugin\GraphQL\Mutations\Entity\DeleteEntityBase;
  *   name = "deleteArticle",
  *   type = "EntityCrudOutput!",
  *   arguments = {
- *     "id" = "String"
+ *     "id" = "Int"
  *   }
  * )
  */
