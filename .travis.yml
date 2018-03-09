@@ -82,7 +82,7 @@ install:
 
   # Copy the customized phpunit configuration file to the core directory so
   # the relative paths are correct.
-  - cp $DRUPAL_BUILD_DIR/modules/graphql/phpunit.xml.dist $DRUPAL_BUILD_DIR/core/phpunit.xml
+  - cp $DRUPAL_BUILD_DIR/modules/contrib/graphql/phpunit.xml.dist $DRUPAL_BUILD_DIR/core/phpunit.xml
 
   # When running with phpdbg we need to replace all code occurrences that check
   # for 'cli' with 'phpdbg'. Some files might be write protected, hence the
