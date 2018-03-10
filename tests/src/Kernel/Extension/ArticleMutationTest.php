@@ -58,10 +58,13 @@ class ArticleMutationTest extends GraphQLContentTestBase {
   protected function userPermissions() {
     $perms = parent::userPermissions();
     $perms[] = 'access content';
+    $perms[] = 'administer nodes';
     $perms[] = 'create article content';
-    $perms[] = 'delete own article content';
-    $perms[] = 'edit own article content';
+    $perms[] = 'delete any article content';
+    $perms[] = 'edit any article content';
     $perms[] = 'execute graphql requests';
+    $perms[] = 'administer nodes';
+    $perms[] = 'bypass node access';
     return $perms;
   }
 
@@ -91,8 +94,23 @@ class ArticleMutationTest extends GraphQLContentTestBase {
    */
   public function testUpdateArticleMutation() {
 
+    $node = $this->createNode([
+      'title' => 'Hey',
+      'status' => 1,
+      'type' => 'Article',
+      'body' => [
+        'value' => 'Ho',
+      ],
+    ]);
+
     $query = $this->getQueryFromFile('updateArticle.gql');
-    $this->assertResults($query, [], [
+    $this->assertResults($query, [
+        'id' => $node->id(),
+        'input' => [
+          'title' => 'Heyo',
+          'body' => "Let's go"
+        ]
+      ], [
       'updateArticle' => [
         'errors' => [],
         'violations' => [],
@@ -111,8 +129,19 @@ class ArticleMutationTest extends GraphQLContentTestBase {
    */
   public function testDeleteArticleMutation() {
 
+    $node = $this->createNode([
+      'title' => 'Hey',
+      'status' => 1,
+      'type' => 'Article',
+      'body' => [
+        'value' => 'Ho',
+      ],
+    ]);
+
     $query = $this->getQueryFromFile('deleteArticle.gql');
-    $this->assertResults($query, [], [
+    $this->assertResults($query, [
+      'id' => $node->id(),
+    ], [
       'deleteArticle' => [
         'errors' => [],
         'violations' => [],

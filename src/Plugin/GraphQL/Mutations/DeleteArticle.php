@@ -16,7 +16,7 @@ use Drupal\graphql_core\Plugin\GraphQL\Mutations\Entity\DeleteEntityBase;
  *   name = "deleteArticle",
  *   type = "EntityCrudOutput!",
  *   arguments = {
- *     "id" = "Int"
+ *     "id" = "String"
  *   }
  * )
  */
