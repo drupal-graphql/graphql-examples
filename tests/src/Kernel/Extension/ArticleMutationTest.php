@@ -42,8 +42,7 @@ class ArticleMutationTest extends GraphQLContentTestBase {
     parent::setUp();
 
     $this->installConfig(['system', 'node', 'field', 'text', 'filter', 'file', 'image', 'taxonomy', 'graphql', 'graphql_core', 'graphql_examples']);
-    $this->installEntitySchema('node', 'user', 'graphql_examples');
-
+    $this->installEntitySchema('node');
     $this->installEntitySchema('user');
     $this->installEntitySchema('taxonomy_vocabulary');
     $this->installEntitySchema('taxonomy_term');
@@ -108,7 +107,6 @@ class ArticleMutationTest extends GraphQLContentTestBase {
         'id' => $node->id(),
         'input' => [
           'title' => 'Heyo',
-          'body' => "Let's go"
         ]
       ], [
       'updateArticle' => [
