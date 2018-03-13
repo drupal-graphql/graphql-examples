@@ -54,13 +54,29 @@ class ArticleMutationTest extends GraphQLContentTestBase {
     return $perms;
   }
 
+  public function createTestArticle() {
+    return $this->createNode([
+      'title' => 'Hey',
+      'status' => 1,
+      'type' => 'article',
+      'body' => [
+        'value' => 'Ho',
+      ],
+    ]);
+  }
+
   /**
    * Test if the article is created properly.
    */
   public function testCreateArticleMutation() {
-
     $query = $this->getQueryFromFile('createArticle.gql');
-    $this->assertResults($query, [], [
+    $variables = [
+      'input' => [
+        'title' => 'Hey',
+        'body' => "Ho"
+      ]
+    ];
+    $expected = [
       'createArticle' => [
         'errors' => [],
         'violations' => [],
@@ -71,7 +87,26 @@ class ArticleMutationTest extends GraphQLContentTestBase {
           ]
         ]
       ],
-    ], $this->defaultMutationCacheMetaData());
+    ];
+    $this->assertResults($query, $variables, $expected, $this->defaultMutationCacheMetaData());
+  }
+
+  /**
+   * Test if the article is NOT created properly.
+   */
+  public function testCreateArticleFailureMutation() {
+    $query = $this->getQueryFromFile('createArticle.gql');
+    $variables = [
+      'input' => [
+        'title' => 'Hey',
+        'some-non-existent-field' => "Ho"
+      ]
+    ];
+    $expected = [
+      "Variable \"\$input\" got invalid value {\"title\":\"Hey\",\"some-non-existent-field\":\"Ho\"}.
+In field \"some-non-existent-field\": Unknown field."
+    ];
+    $this->assertErrors($query, $variables, $expected, $this->defaultMutationCacheMetaData());
   }
 
 
@@ -80,23 +115,18 @@ class ArticleMutationTest extends GraphQLContentTestBase {
    */
   public function testUpdateArticleMutation() {
 
-    $node = $this->createNode([
-      'title' => 'Hey',
-      'status' => 1,
-      'type' => 'article',
-      'body' => [
-        'value' => 'Ho',
-      ],
-    ]);
+    // SETUP
+    $node = $this->createTestArticle();
 
     $query = $this->getQueryFromFile('updateArticle.gql');
-    $this->assertResults($query, [
-        'id' => $node->id(),
-        'input' => [
-          'title' => 'Heyo',
-          'body' => "Let's go",
-        ]
-      ], [
+    $variables = [
+      'id' => $node->id(),
+      'input' => [
+        'title' => 'Heyo',
+        'body' => "Let's go",
+      ]
+    ];
+    $expected = [
       'updateArticle' => [
         'errors' => [],
         'violations' => [],
@@ -107,7 +137,8 @@ class ArticleMutationTest extends GraphQLContentTestBase {
           ]
         ]
       ],
-    ], $this->defaultMutationCacheMetaData());
+    ];
+    $this->assertResults($query, $variables, $expected, $this->defaultMutationCacheMetaData());
   }
 
   /**
@@ -115,19 +146,14 @@ class ArticleMutationTest extends GraphQLContentTestBase {
    */
   public function testDeleteArticleMutation() {
 
-    $node = $this->createNode([
-      'title' => 'Hey',
-      'status' => 1,
-      'type' => 'article',
-      'body' => [
-        'value' => 'Ho',
-      ],
-    ]);
+    // SETUP
+    $node = $this->createTestArticle();
 
     $query = $this->getQueryFromFile('deleteArticle.gql');
-    $this->assertResults($query, [
+    $variables = [
       'id' => $node->id(),
-    ], [
+    ];
+    $expected = [
       'deleteArticle' => [
         'errors' => [],
         'violations' => [],
@@ -138,7 +164,27 @@ class ArticleMutationTest extends GraphQLContentTestBase {
           ]
         ]
       ],
-    ], $this->defaultMutationCacheMetaData());
+    ];
+    $this->assertResults($query, $variables, $expected, $this->defaultMutationCacheMetaData());
   }
+
+  /**
+   * Test if the article is deleted properly.
+   */
+  public function testDeleteNonExistentArticleMutation() {
+
+    // SETUP
+    $node = $this->createTestArticle();
+
+    $query = $this->getQueryFromFile('deleteArticle.gql');
+    $variables = [
+      'id' => 999,
+    ];
+    // Note, the newline in the following string is required.
+    $expected = ["Variable \"\$id\" got invalid value 999.
+Expected type \"String\", found 999."];
+    $this->assertErrors($query, $variables, $expected, $this->defaultMutationCacheMetaData());
+  }
+
 
 }
