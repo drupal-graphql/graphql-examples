@@ -96,7 +96,7 @@ class ArticleMutationTest extends GraphQLContentTestBase {
     $node = $this->createNode([
       'title' => 'Hey',
       'status' => 1,
-      'type' => 'Article',
+      'type' => 'article',
       'body' => [
         'value' => 'Ho',
       ],
@@ -107,6 +107,7 @@ class ArticleMutationTest extends GraphQLContentTestBase {
         'id' => $node->id(),
         'input' => [
           'title' => 'Heyo',
+          'body' => "Let's go",
         ]
       ], [
       'updateArticle' => [
@@ -130,7 +131,7 @@ class ArticleMutationTest extends GraphQLContentTestBase {
     $node = $this->createNode([
       'title' => 'Hey',
       'status' => 1,
-      'type' => 'Article',
+      'type' => 'article',
       'body' => [
         'value' => 'Ho',
       ],
