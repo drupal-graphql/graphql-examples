@@ -30,7 +30,7 @@ class UpdateArticle extends UpdateEntityBase {
   protected function extractEntityInput($value, array $args, ResolveContext $context, ResolveInfo $info) {
     return array_filter([
       'title' => $args['input']['title'],
-      'body' => $args['input']['body'],
+      'body' => key_exists('body', $args['input']) ? $args['input']['body'] : '',
     ]);
   }
 

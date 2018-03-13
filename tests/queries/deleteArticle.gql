@@ -1,5 +1,5 @@
-mutation {
-  deleteArticle(id:1){
+mutation($id: String){
+  deleteArticle(id: $id){
     errors,
     violations{
       message,

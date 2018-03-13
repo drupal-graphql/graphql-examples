@@ -15,6 +15,7 @@ env:
   matrix:
     - DRUPAL_CORE=8.3.x
     - DRUPAL_CORE=8.4.x
+    - DRUPAL_CORE=8.5.x
 
 matrix:
   # Don't wait for the allowed failures to build.
@@ -22,16 +23,14 @@ matrix:
   include:
     - php: 7.1
       env:
-        - DRUPAL_CORE=8.4.x
-        - GRAPHQL=8.x-3.x
+        - DRUPAL_CORE=8.5.x
         # Only run code coverage on the latest php and drupal versions.
         - WITH_PHPDBG_COVERAGE=true
   allow_failures:
     # Allow the code coverage report to fail.
     - php: 7.1
       env:
-        - DRUPAL_CORE=8.4.x
-        - graphql=8.x-3.x
+        - DRUPAL_CORE=8.5.x
         # Only run code coverage on the latest php and drupal versions.
         - WITH_PHPDBG_COVERAGE=true
 
@@ -77,14 +76,14 @@ install:
   - git clone --branch $DRUPAL_CORE --depth 1 https://github.com/drupal/drupal.git $DRUPAL_BUILD_DIR
 
   # Download graphql module from the Github mirror because it is faster.
-  - git clone --branch $GRAQHQL --depth 1 https://github.com/drupal-graphql/graphql.git $DRUPAL_BUILD_DIR/modules
+  - git clone --depth 1 https://github.com/drupal-graphql/graphql.git $DRUPAL_BUILD_DIR/modules/contrib/graphql
 
   # Reference the module in the build site.
   - ln -s $TRAVIS_BUILD_DIR $DRUPAL_BUILD_DIR/modules/graphql-examples
 
   # Copy the customized phpunit configuration file to the core directory so
   # the relative paths are correct.
-  - cp $DRUPAL_BUILD_DIR/modules/graphql/phpunit.xml.dist $DRUPAL_BUILD_DIR/core/phpunit.xml
+  - cp $DRUPAL_BUILD_DIR/modules/contrib/graphql/phpunit.xml.dist $DRUPAL_BUILD_DIR/core/phpunit.xml
 
   # When running with phpdbg we need to replace all code occurrences that check
   # for 'cli' with 'phpdbg'. Some files might be write protected, hence the

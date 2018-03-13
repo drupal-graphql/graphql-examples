@@ -1,5 +1,5 @@
-mutation {
-  updateArticle(id:"1", input:{title: "Heyo", body:"Let's go"}){
+mutation($id: String, $input: ArticleInput){
+  updateArticle(id:$id, input:$input){
     errors,
     violations{
       message,

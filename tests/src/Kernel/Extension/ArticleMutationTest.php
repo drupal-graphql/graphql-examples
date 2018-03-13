@@ -11,17 +11,9 @@ use Drupal\Tests\graphql_core\Kernel\GraphQLContentTestBase;
  */
 class ArticleMutationTest extends GraphQLContentTestBase {
   public static $modules = [
-    'system',
-    'node',
-    'user',
-    'field',
-    'filter',
-    'text',
     'file',
     'image',
     'taxonomy',
-    'graphql',
-    'graphql_core',
     'graphql_examples',
   ];
 
@@ -41,10 +33,7 @@ class ArticleMutationTest extends GraphQLContentTestBase {
   protected function setUp() {
     parent::setUp();
 
-    $this->installConfig(['system', 'node', 'field', 'text', 'filter', 'file', 'image', 'taxonomy', 'graphql', 'graphql_core', 'graphql_examples']);
-    $this->installEntitySchema('node', 'user', 'graphql_examples');
-
-    $this->installEntitySchema('user');
+    $this->installConfig(['file', 'image', 'taxonomy', 'graphql_examples']);
     $this->installEntitySchema('taxonomy_vocabulary');
     $this->installEntitySchema('taxonomy_term');
 
@@ -91,8 +80,23 @@ class ArticleMutationTest extends GraphQLContentTestBase {
    */
   public function testUpdateArticleMutation() {
 
+    $node = $this->createNode([
+      'title' => 'Hey',
+      'status' => 1,
+      'type' => 'article',
+      'body' => [
+        'value' => 'Ho',
+      ],
+    ]);
+
     $query = $this->getQueryFromFile('updateArticle.gql');
-    $this->assertResults($query, [], [
+    $this->assertResults($query, [
+        'id' => $node->id(),
+        'input' => [
+          'title' => 'Heyo',
+          'body' => "Let's go",
+        ]
+      ], [
       'updateArticle' => [
         'errors' => [],
         'violations' => [],
@@ -111,8 +115,19 @@ class ArticleMutationTest extends GraphQLContentTestBase {
    */
   public function testDeleteArticleMutation() {
 
+    $node = $this->createNode([
+      'title' => 'Hey',
+      'status' => 1,
+      'type' => 'article',
+      'body' => [
+        'value' => 'Ho',
+      ],
+    ]);
+
     $query = $this->getQueryFromFile('deleteArticle.gql');
-    $this->assertResults($query, [], [
+    $this->assertResults($query, [
+      'id' => $node->id(),
+    ], [
       'deleteArticle' => [
         'errors' => [],
         'violations' => [],
