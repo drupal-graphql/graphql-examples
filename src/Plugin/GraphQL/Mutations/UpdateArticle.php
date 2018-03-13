@@ -2,7 +2,6 @@
 
 namespace Drupal\graphql_examples\Plugin\GraphQL\Mutations;
 
-use Drupal\graphql\GraphQL\Type\InputObjectType;
 use Drupal\graphql_core\Plugin\GraphQL\Mutations\Entity\UpdateEntityBase;
 use GraphQL\Type\Definition\ResolveInfo;
 use Drupal\graphql\GraphQL\Execution\ResolveContext;
@@ -31,7 +30,7 @@ class UpdateArticle extends UpdateEntityBase {
   protected function extractEntityInput($value, array $args, ResolveContext $context, ResolveInfo $info) {
     return array_filter([
       'title' => $args['input']['title'],
-      'body' => $args['input']['body'],
+      'body' => key_exists('body', $args['input']) ? $args['input']['body'] : '',
     ]);
   }
 

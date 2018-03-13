@@ -2,7 +2,6 @@
 
 namespace Drupal\graphql_examples\Plugin\GraphQL\Mutations;
 
-use Drupal\graphql\GraphQL\Type\InputObjectType;
 use Drupal\graphql_core\Plugin\GraphQL\Mutations\Entity\CreateEntityBase;
 use GraphQL\Type\Definition\ResolveInfo;
 use Drupal\graphql\GraphQL\Execution\ResolveContext;
