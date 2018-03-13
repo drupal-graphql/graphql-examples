@@ -11,17 +11,9 @@ use Drupal\Tests\graphql_core\Kernel\GraphQLContentTestBase;
  */
 class ArticleMutationTest extends GraphQLContentTestBase {
   public static $modules = [
-    'system',
-    'node',
-    'user',
-    'field',
-    'filter',
-    'text',
     'file',
     'image',
     'taxonomy',
-    'graphql',
-    'graphql_core',
     'graphql_examples',
   ];
 
@@ -41,9 +33,7 @@ class ArticleMutationTest extends GraphQLContentTestBase {
   protected function setUp() {
     parent::setUp();
 
-    $this->installConfig(['system', 'node', 'field', 'text', 'filter', 'file', 'image', 'taxonomy', 'graphql', 'graphql_core', 'graphql_examples']);
-    $this->installEntitySchema('node');
-    $this->installEntitySchema('user');
+    $this->installConfig(['file', 'image', 'taxonomy', 'graphql_examples']);
     $this->installEntitySchema('taxonomy_vocabulary');
     $this->installEntitySchema('taxonomy_term');
 
@@ -57,13 +47,10 @@ class ArticleMutationTest extends GraphQLContentTestBase {
   protected function userPermissions() {
     $perms = parent::userPermissions();
     $perms[] = 'access content';
-    $perms[] = 'administer nodes';
     $perms[] = 'create article content';
-    $perms[] = 'delete any article content';
-    $perms[] = 'edit any article content';
+    $perms[] = 'delete own article content';
+    $perms[] = 'edit own article content';
     $perms[] = 'execute graphql requests';
-    $perms[] = 'administer nodes';
-    $perms[] = 'bypass node access';
     return $perms;
   }
 
