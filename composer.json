@@ -1,5 +1,5 @@
 {
-  "name": "drupal/graphql_exmaples",
+  "name": "drupal/graphql_examples",
   "type": "drupal-module",
   "description": "A GraphQL Article and File Mutation Example",
   "keywords": ["Drupal"],
