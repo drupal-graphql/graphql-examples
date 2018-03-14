@@ -2,9 +2,9 @@
 
 namespace Drupal\graphql_examples\Plugin\GraphQL\Mutations;
 
-use Drupal\graphql\GraphQL\Type\InputObjectType;
 use Drupal\graphql_core\Plugin\GraphQL\Mutations\Entity\CreateEntityBase;
-use Youshido\GraphQL\Execution\ResolveInfo;
+use GraphQL\Type\Definition\ResolveInfo;
+use Drupal\graphql\GraphQL\Execution\ResolveContext;
 
 /**
  * Simple mutation for creating a new article node.
@@ -26,7 +26,7 @@ class CreateArticle extends CreateEntityBase {
   /**
    * {@inheritdoc}
    */
-  protected function extractEntityInput(array $args, ResolveInfo $info) {
+  protected function extractEntityInput($value, array $args, ResolveContext $context, ResolveInfo $info) {
     return [
       'title' => $args['input']['title'],
       'body' => $args['input']['body'],

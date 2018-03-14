@@ -2,9 +2,9 @@
 
 namespace Drupal\graphql_examples\Plugin\GraphQL\Mutations;
 
-use Drupal\graphql\GraphQL\Type\InputObjectType;
 use Drupal\graphql_core\Plugin\GraphQL\Mutations\Entity\UpdateEntityBase;
-use Youshido\GraphQL\Execution\ResolveInfo;
+use GraphQL\Type\Definition\ResolveInfo;
+use Drupal\graphql\GraphQL\Execution\ResolveContext;
 
 /**
  * Simple mutation for updating an existing article node.
@@ -27,10 +27,10 @@ class UpdateArticle extends UpdateEntityBase {
   /**
    * {@inheritdoc}
    */
-  protected function extractEntityInput(array $args, ResolveInfo $info) {
+  protected function extractEntityInput($value, array $args, ResolveContext $context, ResolveInfo $info) {
     return array_filter([
       'title' => $args['input']['title'],
-      'body' => $args['input']['body'],
+      'body' => key_exists('body', $args['input']) ? $args['input']['body'] : '',
     ]);
   }
 

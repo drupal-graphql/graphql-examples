@@ -1,0 +1,13 @@
+{
+  "name": "drupal/graphql_examples",
+  "type": "drupal-module",
+  "description": "A GraphQL Article and File Mutation Example",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://github.com/drupal-graphql/graphql-examples",
+    "source": "https://github.com/drupal-graphql/graphql-examples"
+  },
+  "require": { }
+}

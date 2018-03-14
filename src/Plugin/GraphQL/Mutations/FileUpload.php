@@ -12,7 +12,8 @@ use Drupal\graphql\Plugin\GraphQL\Mutations\MutationPluginBase;
 use Drupal\graphql_core\GraphQL\EntityCrudOutputWrapper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
-use Youshido\GraphQL\Execution\ResolveInfo;
+use GraphQL\Type\Definition\ResolveInfo;
+use Drupal\graphql\GraphQL\Execution\ResolveContext;
 
 /**
  * TODO: Add the whole range of file upload validations from file_save_upload().
@@ -97,7 +98,7 @@ class FileUpload extends MutationPluginBase implements ContainerFactoryPluginInt
   /**
    * {@inheritdoc}
    */
-  public function resolve($value, array $args, ResolveInfo $info) {
+  public function resolve($value, array $args, ResolveContext $context, ResolveInfo $info) {
     /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $file */
     $file = $args['file'];
 
