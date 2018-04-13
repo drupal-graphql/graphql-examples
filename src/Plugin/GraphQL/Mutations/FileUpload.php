@@ -157,13 +157,6 @@ class FileUpload extends MutationPluginBase implements ContainerFactoryPluginInt
     /** @var \Drupal\file\FileInterface $entity */
     $entity = $storage->create($values);
 
-    // Check if the current user is allowed to create file entities.
-    if (!$entity->access('create')) {
-      return new EntityCrudOutputWrapper(NULL, NULL, [
-        $this->t('You do not have the necessary permissions to create entities of this type.'),
-      ]);
-    }
-
     // Validate the entity values.
     if (($violations = $entity->validate()) && $violations->count()) {
       return new EntityCrudOutputWrapper(NULL, $violations);
