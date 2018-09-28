@@ -4,7 +4,7 @@ namespace Drupal\graphql_examples\Plugin\GraphQL\Mutations;
 
 use Drupal\graphql\GraphQL\Type\InputObjectType;
 use Drupal\graphql_core\Plugin\GraphQL\Mutations\Entity\CreateEntityBase;
-use Youshido\GraphQL\Execution\ResolveInfo;
+use GraphQL\Type\Definition\ResolveInfo;
 
 /**
  * Simple mutation for creating a new article node.
